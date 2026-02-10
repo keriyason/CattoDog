@@ -6,7 +6,11 @@ using UnityEngine;
 public class PlayerMovement1 : MonoBehaviour
 {
     public float speed = 5f; //speed of the player
-    public float mouseSens = 100f; //mouse sensitivity 
+    public float mouseSens = 100f; //mouse sensitivity
+    public float fallingGravity = 25f;
+    public float lowJumpGravity = 15f;
+
+
 
     public float jumpForce = 5f; //jump amount
     public LayerMask mapMask; //ground layer
@@ -48,6 +52,9 @@ public class PlayerMovement1 : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal"); // moves left and right with A/D
         float z = Input.GetAxisRaw("Vertical"); // moves up and down with W/S
 
+      
+     
+
         Vector3 move = transform.right * x + transform.forward * z;
         //animator.Play(walkAnim);
 
@@ -70,10 +77,24 @@ public class PlayerMovement1 : MonoBehaviour
             }
         }
 
+        Vector3 currentVelocity = rb.velocity;
+        Vector3 targetVelocity = move * speed;
 
 
+       
+        rb.velocity = new Vector3(targetVelocity.x, currentVelocity.y, targetVelocity.z);
 
-            rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
+        if (!IsGrounded)
+        {
+            if (rb.velocity.y < 0)
+            {
+                rb.AddForce(Vector3.down * fallingGravity, ForceMode.Acceleration);
+            }
+            else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+            {
+                rb.AddForce(Vector3.down * lowJumpGravity, ForceMode.Acceleration);
+            }
+        } 
     }
 
     void RotatePlayer()
