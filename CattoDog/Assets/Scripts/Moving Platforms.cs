@@ -6,7 +6,11 @@ public class MovingPlatforms : MonoBehaviour
 {
     public float speed = 0.5f;
     public Transform pointA; 
-    public Transform pointB; 
+    public Transform pointB;
+
+    [Header("Platform Settings")]
+    public float waitTime = 2.5f;
+
 
     private Vector3 target;
     private bool isWaiting = false; //checks if the platform has reached a point
@@ -34,7 +38,7 @@ public class MovingPlatforms : MonoBehaviour
         isWaiting = true; //platform is waiting to move to next point
 
        
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(waitTime);
 
        
         target = (target == pointA.position) ? pointB.position : pointA.position; // point b -> point a
