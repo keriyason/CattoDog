@@ -16,6 +16,9 @@ public class PlayerMovement1 : MonoBehaviour
     static readonly int walkAnim = Animator.StringToHash("Walk");
     static readonly int idleAnim = Animator.StringToHash("Idle");
 
+    private int extraJumps;
+    public int extraJumpsValue;
+
     public Animator animator;
 
     private Rigidbody rb;
@@ -23,6 +26,7 @@ public class PlayerMovement1 : MonoBehaviour
 
     void Start()
     {
+        extraJumps = extraJumpsValue;
         Cursor.lockState = CursorLockMode.Locked; // locks the cursor to the center of the screen
         rb = GetComponent<Rigidbody>(); 
         rb.freezeRotation = true;
@@ -80,10 +84,26 @@ public class PlayerMovement1 : MonoBehaviour
     }
     void HandleJump()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);           
-        }    
+            
+            if (IsGrounded)
+            {
+                extraJumps = extraJumpsValue;
+            }
+
+            
+            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded) //space bar jump - checks if on ground
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
+            
+            else if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0) //accounts for double jump
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                extraJumps--;
+            }
+        }
+
     }
     public bool IsGrounded;
    
