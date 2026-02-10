@@ -7,8 +7,10 @@ public class PlayerMovement1 : MonoBehaviour
 {
     public float speed = 5f; //speed of the player
     public float mouseSens = 100f; //mouse sensitivity
-    public float fallingGravity = 25f;
+    public float fallingGravity = 25f; 
     public float lowJumpGravity = 15f;
+
+
 
 
 
@@ -16,21 +18,22 @@ public class PlayerMovement1 : MonoBehaviour
     public LayerMask mapMask; //ground layer
     public float groundCheckDistance = 1.1f; // checks if the player is on the ground
 
-    static readonly int jumpAnim = Animator.StringToHash("Jump");
-    static readonly int walkAnim = Animator.StringToHash("Walk");
-    static readonly int idleAnim = Animator.StringToHash("Idle");
+    static readonly int jumpAnim = Animator.StringToHash("Jump"); // jump animation
+    static readonly int walkAnim = Animator.StringToHash("Walk"); // walk animation
+    static readonly int idleAnim = Animator.StringToHash("Idle"); // idle animation
 
-    private int extraJumps;
-    public int extraJumpsValue;
+    private int extraJumps; // adds an extra jump
+    public int extraJumpsValue; // how many extra jumps
+    public float extraJumpBoost = 3f;
 
     public Animator animator;
 
-    private Rigidbody rb;
+    private Rigidbody rb; 
    
 
     void Start()
     {
-        extraJumps = extraJumpsValue;
+        extraJumps = extraJumpsValue; 
         Cursor.lockState = CursorLockMode.Locked; // locks the cursor to the center of the screen
         rb = GetComponent<Rigidbody>(); 
         rb.freezeRotation = true;
@@ -45,7 +48,7 @@ public class PlayerMovement1 : MonoBehaviour
     {
         IsGrounded = CheckGrounded();
         RotatePlayer(); // camera rotation with mouse
-        HandleJump();
+        HandleJump(); // jumping mechanic
     }
     void MovePlayer()
     {
@@ -56,20 +59,20 @@ public class PlayerMovement1 : MonoBehaviour
      
 
         Vector3 move = transform.right * x + transform.forward * z;
-        //animator.Play(walkAnim);
+        
 
         if (!IsGrounded) // in air
         {
-            animator.Play(jumpAnim);
+            animator.Play(jumpAnim); //plays jumping animation
         }
         else // on ground
         {
-            if (move.magnitude > 0)
+            if (move.magnitude > 0) // if the player ismoving play walking animation
             {
                 animator.Play(walkAnim);
                 print("walking");
             }
-            else
+            else // if not revert to idle animation
             {
                 animator.Play(idleAnim);
                 print("not walking");
@@ -84,7 +87,7 @@ public class PlayerMovement1 : MonoBehaviour
        
         rb.velocity = new Vector3(targetVelocity.x, currentVelocity.y, targetVelocity.z);
 
-        if (!IsGrounded)
+        if (!IsGrounded) // handles jumping gravity
         {
             if (rb.velocity.y < 0)
             {
@@ -97,7 +100,7 @@ public class PlayerMovement1 : MonoBehaviour
         } 
     }
 
-    void RotatePlayer()
+    void RotatePlayer() //move the player in the direction that the mouse is facing
     {
        float mouseX = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
 
@@ -107,9 +110,9 @@ public class PlayerMovement1 : MonoBehaviour
     {
         {
             
-            if (IsGrounded)
+            if (IsGrounded) 
             {
-                extraJumps = extraJumpsValue;
+                extraJumps = extraJumpsValue; 
             }
 
             
@@ -120,13 +123,13 @@ public class PlayerMovement1 : MonoBehaviour
             
             else if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0) //accounts for double jump
             {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * extraJumpBoost, ForceMode.Impulse);
                 extraJumps--;
             }
         }
 
     }
-    public bool IsGrounded;
+    public bool IsGrounded; //checks for ground 
    
     public bool CheckGrounded() => Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, mapMask);
 

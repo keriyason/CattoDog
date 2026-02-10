@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MovingPlatforms : MonoBehaviour
 {
-    public float speed = 0.5f;
+    public float speed = 0.5f; //speed of platforms
     public Transform pointA; 
     public Transform pointB;
 
     [Header("Platform Settings")]
-    public float waitTime = 2.5f;
+    public float waitTime = 2.5f; // how long the platform will wait before moving from pointA to pointB
 
 
     private Vector3 target;
@@ -22,7 +22,7 @@ public class MovingPlatforms : MonoBehaviour
 
     void Update()
     {
-        if (!isWaiting) //checks if
+        if (!isWaiting) //checks if the platform is not waiting
         {
             transform.position = Vector3.MoveTowards (transform.position,target, speed * Time.deltaTime);
 
@@ -38,7 +38,7 @@ public class MovingPlatforms : MonoBehaviour
         isWaiting = true; //platform is waiting to move to next point
 
        
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(waitTime); // waits for platform waittime 
 
        
         target = (target == pointA.position) ? pointB.position : pointA.position; // point b -> point a
