@@ -10,10 +10,6 @@ public class PlayerMovement1 : MonoBehaviour
     public float fallingGravity = 25f; 
     public float lowJumpGravity = 15f;
 
-
-
-
-
     public float jumpForce = 5f; //jump amount
     public LayerMask mapMask; //ground layer
     public float groundCheckDistance = 1.1f; // checks if the player is on the ground
