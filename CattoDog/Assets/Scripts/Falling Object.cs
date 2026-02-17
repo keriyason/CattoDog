@@ -1,18 +1,45 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FallingObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] public GameObject highlighterPrefab;
+    [SerializeField] public Transform spawnPoint;
+    [SerializeField] private float spawnInterval;
+
+
+    private int spawnCount;
+
+    private void Start()
     {
-        
+        spawnCount = 0;
+        InvokeRepeating("SpawnHighlighter", spawnInterval, spawnInterval);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (spawnCount == 1)
+        {
+            CancelInvoke();
+        }
+    }
+
+    void SpawnHighlighter()
+    {
+        if (spawnPoint != null)
+        {
+            spawnCount++;
+
+            Instantiate(highlighterPrefab, spawnPoint.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("bleh");
+        }
+
     }
 }
