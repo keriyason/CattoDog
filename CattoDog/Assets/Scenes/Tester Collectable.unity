@@ -977,6 +977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: coin
       objectReference: {fileID: 0}
+    - target: {fileID: 6848877316066274080, guid: ae5f489585bf04c46aeb7cf84115a17a, type: 3}
+      propertyPath: rotateSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

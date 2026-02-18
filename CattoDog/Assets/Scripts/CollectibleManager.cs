@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static Collectable;
 
 public class CollectibleManager : MonoBehaviour
 {
-   public static CollectibleManager Instance { get; private set; }
-    public int totalCollected;
+    public static CollectibleManager Instance { get; private set; }
+    private Dictionary<CollectibleType, int< collectbles;
+        new Dictionary<CollectibleType, int>();
+
 
     private void Awake()
     {
-        if (Instance != null && Instance !=this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
@@ -17,12 +21,11 @@ public class CollectibleManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(gameObject);
 
     }
-    public void Add(int amount)
-    {
-        totalCollected += amount;
-        Debug.Log("Collected" + totalCollected);
+    foreach (CollectibleType type in System.Enum.GetValues(typeof(CollectibleType)))
+        {
+    collectibles[typeof] = 0;
     }
+
 }
