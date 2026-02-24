@@ -5232,7 +5232,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 2db83b9deca888648a73d4b4d8816820, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 979298977fa77df4ea824384fa25f7cd, type: 2}
+      objectReference: {fileID: 2100000, guid: cd86ed50925206b42b5df604f2ab5b7d, type: 2}
     - target: {fileID: 919132149155446097, guid: 2db83b9deca888648a73d4b4d8816820, type: 3}
       propertyPath: m_Name
       value: Tamagatchi
