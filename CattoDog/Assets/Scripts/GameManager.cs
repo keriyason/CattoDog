@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string
     gameplaySceneName = "Scene1";
-
+    [SerializeField] private string winSceneName = "WinScene";
     void Awake()
     {
         if (Instance == null)
@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(resetSceneName);
         nextSceneName = mainMenuSceneName;
+    }
+    public void LoadWinScene()
+    {
+        SceneManager.LoadScene(resetSceneName);
+        nextSceneName = winSceneName;
     }
 }
 

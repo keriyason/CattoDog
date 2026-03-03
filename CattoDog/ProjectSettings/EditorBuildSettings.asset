@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gameplay.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/RecordPlayer.unity
+    guid: 0e96d5566874ce0458e259d705d4fa2d
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: 251f7e3787137bc408de66377bde310d
   m_configObjects: {}
